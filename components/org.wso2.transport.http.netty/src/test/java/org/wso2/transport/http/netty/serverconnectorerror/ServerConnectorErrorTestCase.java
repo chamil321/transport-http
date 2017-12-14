@@ -28,6 +28,7 @@ import org.wso2.transport.http.netty.config.YAMLTransportConfigurationBuilder;
 import org.wso2.transport.http.netty.contract.ServerConnector;
 import org.wso2.transport.http.netty.util.TestUtil;
 import org.wso2.transport.http.netty.util.client.http.HttpClient;
+import org.wso2.transport.http.netty.util.client.http.SimplexTcpCLient;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -55,7 +56,9 @@ public class ServerConnectorErrorTestCase {
     @Test
     public void serverConnectorErrorExistTest() {
         try {
-            HttpClient client = new HttpClient();
+//            HttpClient client = new HttpClient();
+//            client.createAndSendRequest(baseURI, "/", HttpMethod.POST, "Hello world");
+            SimplexTcpCLient client = new SimplexTcpCLient();
             client.createAndSendRequest(baseURI, "/", HttpMethod.POST, "Hello world");
             //Adjacent request
             HttpURLConnection urlConn = TestUtil.request(baseURI, "/", HttpMethod.POST.name(), true);
