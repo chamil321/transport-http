@@ -98,6 +98,9 @@ public class ListenerConfiguration {
     private String tlsStoreType;
 
     @XmlAttribute
+    private boolean chunkEnabled;
+
+    @XmlAttribute
     private boolean keepAlive = true;
 
     @XmlElementWrapper(name = "parameters")
@@ -283,6 +286,14 @@ public class ListenerConfiguration {
 
     public void setRequestSizeValidationConfig(RequestSizeValidationConfiguration requestSizeValidationConfig) {
         this.requestSizeValidationConfig = requestSizeValidationConfig;
+    }
+
+    public boolean isChunkEnabled() {
+        return chunkEnabled;
+    }
+
+    public void setChunkEnabled(boolean chunkEnabled) {
+        this.chunkEnabled = chunkEnabled;
     }
 
     public boolean isKeepAlive() {

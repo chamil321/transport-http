@@ -192,6 +192,7 @@ public final class Constants {
     public static final String HTTP_HOST = "host";
     public static final String HTTP_PORT = "port";
     public static final String SCHEME = "scheme";
+    public static final String ENABLE_CHUNKING = "enableChunking";
     public static final String KEEP_ALIVE = "keepAlive";
     public static final String HTTP_KEY_STORE_FILE = "keyStoreFile";
     public static final String HTTP_KEY_STORE_PASS = "keyStorePassword";

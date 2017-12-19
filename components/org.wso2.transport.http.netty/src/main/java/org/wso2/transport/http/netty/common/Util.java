@@ -30,6 +30,7 @@ import io.netty.handler.codec.http.LastHttpContent;
 import org.wso2.carbon.messaging.Header;
 import org.wso2.carbon.messaging.Headers;
 import org.wso2.transport.http.netty.common.ssl.SSLConfig;
+import org.wso2.transport.http.netty.config.ListenerConfiguration;
 import org.wso2.transport.http.netty.config.Parameter;
 import org.wso2.transport.http.netty.listener.RequestDataHolder;
 import org.wso2.transport.http.netty.message.HTTPCarbonMessage;
