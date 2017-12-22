@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package org.wso2.transport.http.netty.chunkdisable;
+package org.wso2.transport.http.netty.ClientOptionsTestCase;
 
 import io.netty.handler.codec.http.DefaultHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
@@ -80,7 +80,7 @@ public class ChunkHeaderClientTestCase {
     @Test
     public void chunkDisabledTestCase() {
         HTTPCarbonMessage msg = new HTTPCarbonMessage(new DefaultHttpRequest(HttpVersion.HTTP_1_1,
-                HttpMethod.GET, ""));
+                HttpMethod.POST, ""));
         msg.setHeader(Constants.HTTP_CONTENT_LENGTH, String.valueOf(testValue.length()));
         HTTPCarbonMessage response = getResponse(msg, false);
         String result = new BufferedReader(new InputStreamReader(new HttpMessageDataStreamer(response)
@@ -95,7 +95,7 @@ public class ChunkHeaderClientTestCase {
     @Test
     public void chunkEnabledTestCase() {
         HTTPCarbonMessage msg = new HTTPCarbonMessage(new DefaultHttpRequest(HttpVersion.HTTP_1_1,
-                HttpMethod.GET, ""));
+                HttpMethod.POST, ""));
         HTTPCarbonMessage response = getResponse(msg, true);
         String result = new BufferedReader(new InputStreamReader(new HttpMessageDataStreamer(response)
                 .getInputStream()))
@@ -119,7 +119,7 @@ public class ChunkHeaderClientTestCase {
         msg.setProperty("PORT", TestUtil.HTTP_SERVER_PORT);
         msg.setProperty("PROTOCOL", "http");
         msg.setProperty("HOST", "localhost");
-        msg.setProperty("HTTP_METHOD", "GET");
+        msg.setProperty("HTTP_METHOD", "POST");
         msg.addMessageBody(byteBuffer);
         msg.setEndOfMsgAdded(true);
         try {

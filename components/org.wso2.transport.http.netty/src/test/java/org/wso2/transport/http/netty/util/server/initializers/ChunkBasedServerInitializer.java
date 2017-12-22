@@ -25,6 +25,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.DefaultHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpRequest;
@@ -68,6 +69,7 @@ public class ChunkBasedServerInitializer extends HTTPServerInitializer {
     private class ChunkBasedServerHandler extends ChannelInboundHandlerAdapter {
         private String length;
         private String encoding;
+        private String httpVersion;
 
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -84,6 +86,7 @@ public class ChunkBasedServerInitializer extends HTTPServerInitializer {
                             HttpResponseStatus.valueOf(responseStatusCode).reasonPhrase());
                     FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, httpResponseStatus, content);
                     response.headers().set(CONTENT_TYPE, contentType);
+                    response.headers().set(Constants.HTTP_VERSION, req.protocolVersion().text());
                     length = req.headers().get(Constants.HTTP_CONTENT_LENGTH);
                     encoding = req.headers().get(Constants.HTTP_TRANSFER_ENCODING);
                     if (length != null) {
