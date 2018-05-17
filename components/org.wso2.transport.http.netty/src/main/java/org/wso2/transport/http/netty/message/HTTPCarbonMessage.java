@@ -27,6 +27,7 @@ import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMessage;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpResponse;
+import io.netty.handler.codec.http.LastHttpContent;
 import org.wso2.transport.http.netty.common.Constants;
 import org.wso2.transport.http.netty.contract.HttpResponseFuture;
 import org.wso2.transport.http.netty.contract.ServerConnectorException;
@@ -76,10 +77,17 @@ public class HTTPCarbonMessage {
      * @param httpContent chunks of the payload.
      */
     public synchronized void addHttpContent(HttpContent httpContent) {
+        this.blockingEntityCollector.addHttpContent(httpContent);
+        this.blockingEntityCollector.getHttpContent();
         this.contentObservable.notifyAddListener(httpContent);
         if (this.messageFuture != null) {
+            MessageFuture tempMessageFuture = this.messageFuture;
+//            if (httpContent instanceof LastHttpContent) {
+////                removeHttpContentAsyncFuture();
+//                this.messageFuture = null;
+//            }
             this.contentObservable.notifyGetListener(httpContent);
-            this.messageFuture.notifyMessageListener(httpContent);
+            tempMessageFuture.notifyMessageListener(httpContent);
         } else {
             this.blockingEntityCollector.addHttpContent(httpContent);
         }

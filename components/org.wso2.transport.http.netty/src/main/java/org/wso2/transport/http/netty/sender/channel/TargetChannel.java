@@ -196,7 +196,7 @@ public class TargetChannel {
         if (handlerExecutor != null) {
             handlerExecutor.executeAtTargetRequestReceiving(httpOutboundRequest);
         }
-
+//        resetTargetChannelState(httpOutboundRequest);
         httpOutboundRequest.getHttpContentAsync().setMessageListener((httpContent ->
                 this.channel.eventLoop().execute(() -> {
                     try {
@@ -228,6 +228,7 @@ public class TargetChannel {
             }
 
             writeOutboundRequestBody(httpContent);
+            resetTargetChannelState(httpOutboundRequest);
 
             if (handlerExecutor != null) {
                 handlerExecutor.executeAtTargetRequestSending(httpOutboundRequest);
@@ -273,7 +274,7 @@ public class TargetChannel {
         });
     }
 
-    public void resetState(HTTPCarbonMessage httpOutboundRequest) {
+    private void resetTargetChannelState(HTTPCarbonMessage httpOutboundRequest) {
         httpOutboundRequest.removeHttpContentAsyncFuture();
         contentList.clear();
         contentLength = 0;

@@ -38,9 +38,11 @@ public class MessageFuture {
 
     public synchronized void setMessageListener(MessageListener messageListener) {
         this.messageListener = messageListener;
-        while (!httpCarbonMessage.isEmpty()) {
-            HttpContent httpContent = httpCarbonMessage.getHttpContent();
-            notifyMessageListener(httpContent);
+        synchronized (httpCarbonMessage) {
+            while (!httpCarbonMessage.isEmpty()) {
+                HttpContent httpContent = httpCarbonMessage.getHttpContent();
+                notifyMessageListener(httpContent);
+            }
         }
         while (!pendingPayload.isEmpty()) {
             notifyMessageListener(pendingPayload.poll());

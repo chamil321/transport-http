@@ -98,7 +98,6 @@ public class TargetHandler extends ChannelInboundHandlerAdapter {
                     msgHolder.markNoPromisesReceived();
                 }
                 if (this.httpResponseFuture != null) {
-                    targetChannel.resetState(outboundRequestMessage);
                     httpResponseFuture.notifyHttpListener(inboundResponseMessage);
                 } else {
                     log.error("Cannot notify the response to client as there is no associated responseFuture");

@@ -132,6 +132,7 @@ public class HttpMessageDataStreamer {
             byteStreamWriteLock.lock();
             try {
                 if (ioException != null) {
+                    httpCarbonMessage.addHttpContent(new DefaultLastHttpContent());
                     throw new EncoderException(ioException.getMessage());
                 }
             } finally {
