@@ -84,6 +84,7 @@ public class SourceErrorHandler {
     }
 
     void handleErrorCloseScenario(HTTPCarbonMessage inboundRequestMsg) {
+        System.out.println("SourceErrorHandler-handleErrorCloseScenario: " + state);
         this.inboundRequestMsg = inboundRequestMsg;
         try {
             switch (state) {
@@ -124,6 +125,7 @@ public class SourceErrorHandler {
 
     ChannelFuture handleIdleErrorScenario(HTTPCarbonMessage inboundRequestMsg, ChannelHandlerContext ctx,
                                           IdleStateEvent evt) {
+        System.out.println("SourceErrorHandler-handleIdleErrorScenario: " + state);
         this.inboundRequestMsg = inboundRequestMsg;
         try {
             switch (state) {
@@ -203,6 +205,7 @@ public class SourceErrorHandler {
             } else {
                 outboundRespStatusFuture.notifyHttpListener(inboundRequestMsg);
                 this.setState(ENTITY_BODY_SENT);
+                System.out.println(ENTITY_BODY_SENT);
             }
         });
     }

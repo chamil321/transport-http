@@ -212,6 +212,7 @@ public class TargetChannel {
 
     private void writeOutboundRequest(HTTPCarbonMessage httpOutboundRequest, HttpContent httpContent) throws Exception {
         targetErrorHandler.setState(SENDING_ENTITY_BODY);
+        System.out.println(SENDING_ENTITY_BODY);
         if (Util.isLastHttpContent(httpContent)) {
             if (!this.requestHeaderWritten) {
                 // this means we need to send an empty payload

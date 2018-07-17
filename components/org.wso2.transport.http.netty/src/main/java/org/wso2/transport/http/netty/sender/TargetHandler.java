@@ -96,6 +96,7 @@ public class TargetHandler extends ChannelInboundHandlerAdapter {
 
     private void readInboundResponseHeaders(ChannelHandlerContext ctx, HttpResponse httpInboundResponse) {
         targetErrorHandler.setState(RECEIVING_ENTITY_BODY);
+        System.out.println(RECEIVING_ENTITY_BODY);
         inboundResponseMsg = createInboundRespCarbonMsg(ctx, httpInboundResponse, outboundRequestMsg);
 
         OutboundMsgHolder msgHolder = http2TargetHandler.
@@ -123,6 +124,7 @@ public class TargetHandler extends ChannelInboundHandlerAdapter {
                 this.inboundResponseMsg = null;
                 targetChannel.getChannel().pipeline().remove(Constants.IDLE_STATE_HANDLER);
                 targetErrorHandler.setState(ENTITY_BODY_RECEIVED);
+                System.out.println(ENTITY_BODY_RECEIVED);
                 if (!isKeepAlive(keepAliveConfig, outboundRequestMsg)) {
                     closeChannel(ctx);
                 }

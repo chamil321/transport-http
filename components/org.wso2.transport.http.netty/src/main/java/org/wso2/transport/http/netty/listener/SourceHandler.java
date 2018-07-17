@@ -107,10 +107,12 @@ public class SourceHandler extends ChannelInboundHandlerAdapter {
 
     private void readInboundRequestHeaders(ChannelHandlerContext ctx, HttpRequest inboundRequestHeaders) {
         sourceErrorHandler.setState(CONNECTED);
+        System.out.println(CONNECTED);
         inboundRequestMsg = createInboundReqCarbonMsg(inboundRequestHeaders, ctx, remoteAddress, interfaceId, this);
         continueRequest = is100ContinueRequest(inboundRequestMsg);
         if (continueRequest) {
             sourceErrorHandler.setState(EXPECT_100_CONTINUE_HEADER_RECEIVED);
+            System.out.println(EXPECT_100_CONTINUE_HEADER_RECEIVED);
         }
         notifyRequestListener(inboundRequestMsg, ctx);
 
@@ -126,6 +128,7 @@ public class SourceHandler extends ChannelInboundHandlerAdapter {
         if (inboundRequestMsg != null) {
             if (inboundRequestEntityBody instanceof HttpContent) {
                 sourceErrorHandler.setState(RECEIVING_ENTITY_BODY);
+                System.out.println(RECEIVING_ENTITY_BODY);
                 HttpContent httpContent = (HttpContent) inboundRequestEntityBody;
                 try {
                     inboundRequestMsg.addHttpContent(httpContent);
@@ -190,6 +193,7 @@ public class SourceHandler extends ChannelInboundHandlerAdapter {
         this.ctx = ctx;
         this.remoteAddress = ctx.channel().remoteAddress();
         sourceErrorHandler.setState(CONNECTED);
+        System.out.println("Channel Active:" + CONNECTED);
     }
 
     @Override

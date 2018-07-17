@@ -60,9 +60,11 @@ public class TargetErrorHandler {
 
     public TargetErrorHandler() {
         this.state = CONNECTED;
+        System.out.println(CONNECTED);
     }
 
     protected void handleErrorCloseScenario(HTTPCarbonMessage inboundResponseMsg) {
+        System.out.println("TargetErrorHandler-handleErrorCloseScenario: " +state);
         switch (state) {
             case CONNECTED:
                 httpResponseFuture.notifyHttpListener(
@@ -90,6 +92,7 @@ public class TargetErrorHandler {
     }
 
     protected void handleErrorIdleScenarios(HTTPCarbonMessage inboundResponseMsg, String channelID) {
+        System.out.println("TargetErrorHandler-handleErrorIdleScenarios: " +state);
         switch (state) {
             case CONNECTED:
                 httpResponseFuture.notifyHttpListener(new EndpointTimeOutException(channelID,
@@ -144,6 +147,7 @@ public class TargetErrorHandler {
                 notifyResponseFutureListener(writeOperationPromise);
             } else {
                 this.setState(ENTITY_BODY_SENT);
+                System.out.println(ENTITY_BODY_SENT);
             }
         });
     }

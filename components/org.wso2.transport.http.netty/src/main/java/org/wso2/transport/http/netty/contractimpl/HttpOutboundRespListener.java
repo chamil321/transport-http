@@ -143,6 +143,7 @@ public class HttpOutboundRespListener implements HttpConnectorListener {
         }
         if (continueRequest) {
             sourceErrorHandler.setState(RESPONSE_100_CONTINUE_SENT);
+            System.out.println(RESPONSE_100_CONTINUE_SENT);
             continueRequest = false;
         } else {
             if (sourceErrorHandler.getState().equals(SourceInteractiveState.RECEIVING_ENTITY_BODY)) {
@@ -151,6 +152,7 @@ public class HttpOutboundRespListener implements HttpConnectorListener {
                 keepAlive = false;
             }
             sourceErrorHandler.setState(SENDING_ENTITY_BODY);
+            System.out.println(SENDING_ENTITY_BODY);
         }
 
         ChannelFuture outboundChannelFuture;
