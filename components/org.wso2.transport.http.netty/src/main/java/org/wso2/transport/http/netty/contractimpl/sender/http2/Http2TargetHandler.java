@@ -266,4 +266,12 @@ public class Http2TargetHandler extends ChannelDuplexHandler {
     private Http2MessageStateContext getHttp2MessageContext(OutboundMsgHolder outboundMsgHolder) {
         return outboundMsgHolder.getRequest().getHttp2MessageStateContext();
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        if (ctx != null && ctx.channel().isActive()) {
+            ctx.close();
+        }
+        LOG.error("Exception occurred in HTTP/2 TargetHandler : {}", cause.getMessage());
+    }
 }
